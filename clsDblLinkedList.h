@@ -113,22 +113,33 @@ public:
 
     void DeleteNode(Node*& NodeToDelete) {
 
-      
-        if (head == NULL || NodeToDelete == NULL) {
+        if (head == NULL)
             return;
-        }
-        if (head == NodeToDelete) {
-            head = NodeToDelete->next;
-        }
-        if (NodeToDelete->next != NULL) {
-            NodeToDelete->next->prev = NodeToDelete->prev;
-        }
-        if (NodeToDelete->prev != NULL) {
-            NodeToDelete->prev->next = NodeToDelete->next;
-        }
-        delete NodeToDelete;
 
         _Size--;
+
+        if (head == tail && head == NodeToDelete) {
+
+            head = tail = NULL;
+            delete NodeToDelete;
+            return;
+        }
+
+        if (head == NodeToDelete) {
+            head = head->next;
+            head->prev = NULL;
+        }
+        else if (tail == NodeToDelete) {
+            tail = tail->prev;
+            tail->next = NULL;
+        }
+        else {
+
+            NodeToDelete->next->prev = NodeToDelete->prev;
+            NodeToDelete->prev->next = NodeToDelete->next;
+        }
+
+        delete NodeToDelete;
     }
 
     void DeleteFirstNode()
@@ -150,27 +161,13 @@ public:
 
     void DeleteLastNode() {
 
-
-        if (head == NULL) {
+        if (tail == NULL)
             return;
-        }
+       
+        tail = tail->prev;
+        delete tail->next;
+        tail->next = NULL;
 
-        if (head->next == NULL) {
-            delete head;
-            head = NULL;
-            return;
-        }
-
-        Node* current = head;
-
-        while (current->next->next != NULL)
-        {
-            current = current->next;
-        }
-
-        Node* temp = current->next;
-        current->next = NULL;
-        delete temp;
         _Size--;
     }
 
