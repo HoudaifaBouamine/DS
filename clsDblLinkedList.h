@@ -17,26 +17,31 @@ public:
     {
 
     public:
-        T value;
-        Node* next;
-        Node* prev;
+        T value ;
+        Node* next = NULL;
+        Node* prev = NULL;
     };
 
     Node* head = NULL;
+    Node* tail = NULL;
 
     void InsertAtBeginning(T value)
     {
 
-        Node* newNode = new Node();
-        newNode->value = value;
-        newNode->next = head;
-        newNode->prev = NULL;
-
-        if (head != NULL) {
-            head->prev = newNode;
-        }
-        head = newNode;
         _Size++;
+
+        if (head == NULL) {
+            head = tail = new Node;
+            head->value = value;
+
+            return;
+       }
+
+
+        head->prev = new Node;
+        head->prev->next = head;
+        head->prev->value = value;
+        head = head->prev;
 
     }
 
@@ -89,23 +94,20 @@ public:
 
     void InsertAtEnd(T value) {
 
-
-        Node* newNode = new Node();
-        newNode->value = value;
-        newNode->next = NULL;
-        if (head == NULL) {
-            newNode->prev = NULL;
-            head = newNode;
-        }
-        else {
-            Node* current = head;
-            while (current->next != NULL) {
-                current = current->next;
-            }
-            current->next = newNode;
-            newNode->prev = current;
-        }
         _Size++;
+
+        if (tail == NULL) {
+
+            tail = head = new Node;
+            tail->value = value;
+
+            return;
+        }
+        
+        tail->next = new Node;
+        tail->next->prev = tail;
+        tail->next->value = value;
+        tail = tail->next;
 
     }
 
