@@ -27,13 +27,6 @@ public:
     void InsertAtBeginning(T value)
     {
 
-        /*
-            1-Create a new node with the desired value.
-            2-Set the next pointer of the new node to the current head of the list.
-            3-Set the previous pointer of the current head to the new node.
-            4-Set the new node as the new head of the list.
-        */
-
         Node* newNode = new Node();
         newNode->value = value;
         newNode->next = head;
@@ -47,7 +40,6 @@ public:
 
     }
 
-    // Print the linked list
     void PrintList()
 
     {
@@ -80,12 +72,7 @@ public:
     void InsertAfter(Node* current, T value) {
 
 
-        /*  1 - Create a new node with the desired value.
-             2-Set the next pointer of the new node to the next node of the current node.
-             3-Set the previous pointer of the new node to the current node.
-             4-Set the next pointer of the current node to the new node.
-             5-Set the previous pointer of the next node to the new node(if it exists).
-        */
+
 
         Node* newNode = new Node();
         newNode->value = value;
@@ -101,13 +88,6 @@ public:
     }
 
     void InsertAtEnd(T value) {
-
-        /*
-            1-Create a new node with the desired value.
-            2-Traverse the list to find the last node.
-            3-Set the next pointer of the last node to the new node.
-            4-Set the previous pointer of the new node to the last node.
-        */
 
 
         Node* newNode = new Node();
@@ -131,11 +111,7 @@ public:
 
     void DeleteNode(Node*& NodeToDelete) {
 
-        /*
-            1-Set the next pointer of the previous node to the next pointer of the current node.
-            2-Set the previous pointer of the next node to the previous pointer of the current node.
-            3-Delete the current node.
-        */
+      
         if (head == NULL || NodeToDelete == NULL) {
             return;
         }
@@ -156,12 +132,7 @@ public:
     void DeleteFirstNode()
     {
 
-        /*
-            1-Store a reference to the head node in a temporary variable.
-            2-Update the head pointer to point to the next node in the list.
-            3-Set the previous pointer of the new head to NULL.
-            4-Delete the temporary reference to the old head node.
-        */
+        
 
         if (head == NULL) {
             return;
@@ -177,11 +148,6 @@ public:
 
     void DeleteLastNode() {
 
-        /*
-            1-Traverse the list to find the last node.
-            2-Set the next pointer of the second-to-last node to NULL.
-            3-Delete the last node.
-        */
 
         if (head == NULL) {
             return;
@@ -194,7 +160,7 @@ public:
         }
 
         Node* current = head;
-        // we need to find the node before last node.
+
         while (current->next->next != NULL)
         {
             current = current->next;
