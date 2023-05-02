@@ -18,12 +18,13 @@ public :
 		_size = size;
 	}
 
-	void set(int index, T value) {
+	bool set(int index, T value) {
 
 		if (index >= _size || index < 0)
-			return;
+			return false;
 
 		_ptr[index] = value;
+		return true;
 	}
 
 	T get(int index) {
