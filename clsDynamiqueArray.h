@@ -13,9 +13,13 @@ public :
 
 	clsDynamiqueArray(int size) {
 
-		delete[] _ptr;
 		_ptr = new T[size];
 		_size = size;
+	}
+
+	~clsDynamiqueArray() {
+
+		delete[] _ptr;
 	}
 
 	bool set(int index, T value) {
