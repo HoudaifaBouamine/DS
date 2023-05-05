@@ -1,5 +1,6 @@
 #pragma once
-
+#include <iostream>
+using namespace std;
 template<typename T>
 class clsDynamiqueArray
 {
@@ -7,19 +8,19 @@ class clsDynamiqueArray
 private :
 
 	int _size = 0;
-	T* _ptr = nullptr;
+	T* _arr = nullptr;
 
 public :
 
 	clsDynamiqueArray(int size) {
 
-		_ptr = new T[size];
+		_arr = new T[size];
 		_size = size;
 	}
 
 	~clsDynamiqueArray() {
 
-		delete[] _ptr;
+		delete[] _arr;
 	}
 
 	bool set(int index, T value) {
@@ -27,7 +28,7 @@ public :
 		if (index >= _size || index < 0)
 			return false;
 
-		_ptr[index] = value;
+		_arr[index] = value;
 		return true;
 	}
 
@@ -36,7 +37,7 @@ public :
 		if (index >= _size || index < 0)
 			return NULL;
 
-		return _ptr[index];
+		return _arr[index];
 	}
 
 	int size() {
@@ -54,9 +55,9 @@ public :
 		int size = _size - 1;
 
 		for (int i = 0; i < size; i++)
-			cout << _ptr[i] << sep;
+			cout << _arr[i] << sep;
 
-		cout << _ptr[size];
+		cout << _arr[size];
 	}
 
 	void print(string sep) {
@@ -64,8 +65,8 @@ public :
 		int size = _size - 1;
 
 		for (int i = 0; i < size; i++)
-			cout << _ptr[i] << sep;
-		cout << _ptr[size];
+			cout << _arr[i] << sep;
+		cout << _arr[size];
 
 	}
 
@@ -74,9 +75,29 @@ public :
 		int size = _size - 1;
 
 		for (int i = 0; i < size; i++)
-			cout << _ptr[i] << " ";
-		cout << _ptr[size];
+			cout << _arr[i] << " ";
+		cout << _arr[size] << endl;
 
+	}
+
+	void resize(int new_size) {
+
+		if (new_size < 0) {
+			new_size = 0;
+		}
+
+		T* tmp = new T[new_size];
+
+		int min_size = min(new_size, _size);
+
+		for (int i = 0; i < min_size; i++)
+		{
+			tmp[i] = _arr[i];
+		}
+
+		delete[] _arr;
+		_arr = tmp;
+		_size = new_size;
 	}
 };
 
