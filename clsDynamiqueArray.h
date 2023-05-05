@@ -134,5 +134,33 @@ public :
 		--_size;
 		return true;
 	}
+
+	private:
+	int _binary_recursive_search(T item, int min,int max) {
+
+		int mid = (min + max) / 2;
+
+		if (min > max) {
+			return -1;
+		}
+
+		if (item == _arr[mid]) {
+			return mid;
+		}
+		
+		if (item > _arr[mid]) {
+			return _binary_recursive_search(item, mid + 1, max);
+		}
+		else {
+			return _binary_recursive_search(item, min, mid - 1);
+		}
+
+
+	}
+
+	public :
+	int find(T item) {	
+		return _binary_recursive_search(item,0,_size-1);
+	}
 };
 
