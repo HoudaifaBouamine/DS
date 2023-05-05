@@ -123,5 +123,15 @@ public :
 		_arr = NULL;
 		_size = 0;
 	}
+
+	void delete_item(int index) {
+		if (index < 0 || index >= _size) return;
+
+		for (int i = index; i < _size - 1; i++) {
+			_arr[i] = _arr[i + 1];
+		}
+
+		--_size;
+	}
 };
 
