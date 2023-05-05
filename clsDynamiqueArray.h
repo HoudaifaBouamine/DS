@@ -162,5 +162,10 @@ public :
 	int find(T item) {	
 		return _binary_recursive_search(item,0,_size-1);
 	}
+
+	bool delete_item(T item) {
+
+		return this->delete_index(this->find(item));
+	}
 };
 
