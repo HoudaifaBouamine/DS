@@ -167,5 +167,27 @@ public :
 
 		return this->delete_index(this->find(item));
 	}
+
+	bool insert(int index, T item) {
+
+		if (index > _size || index < 0) return false;
+
+		++_size;
+
+		T* tmp_arr = new T[_size];
+
+		for (int i = 0; i < index; i++)
+			tmp_arr[i] = _arr[i];
+
+		tmp_arr[index] = item;
+
+		for (int i = index + 1; i < _size; i++)
+			tmp_arr[i] = _arr[i-1];
+
+		delete[] _arr;
+		_arr = tmp_arr;
+
+		return true;
+	}
 };
 
