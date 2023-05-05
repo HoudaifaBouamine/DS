@@ -51,6 +51,7 @@ public :
 	}
 
 	void print(char sep) {
+		if (!_size) return;
 
 		int size = _size - 1;
 
@@ -61,6 +62,7 @@ public :
 	}
 
 	void print(string sep) {
+		if (!_size) return;
 
 		int size = _size - 1;
 
@@ -71,6 +73,8 @@ public :
 	}
 
 	void print() {
+
+		if (!_size) return;
 
 		int size = _size - 1;
 
@@ -98,6 +102,26 @@ public :
 		delete[] _arr;
 		_arr = tmp;
 		_size = new_size;
+	}
+
+	void reverce() {
+
+		T tmp;
+		int limit = _size / 2 + 1;
+
+		for (int i = 0; i < limit; i++) {
+
+			tmp = _arr[i];
+			_arr[i] = _arr[_size - i - 1];
+			_arr[_size - i - 1] = tmp;
+		}
+	}
+
+	void clear() {
+
+		delete[] _arr;
+		_arr = NULL;
+		_size = 0;
 	}
 };
 
