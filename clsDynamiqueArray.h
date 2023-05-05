@@ -7,7 +7,8 @@ class clsDynamiqueArray
 
 private :
 
-	int _size = 0;
+	int _length = 0; // used elements
+	int _size = 0;   // The real size of the array
 	T* _arr = nullptr;
 
 public :
@@ -16,6 +17,7 @@ public :
 
 		_arr = new T[size];
 		_size = size;
+		_length = size;
 	}
 
 	~clsDynamiqueArray() {
@@ -74,13 +76,13 @@ public :
 
 	void print() {
 
-		if (!_size) return;
+		if (!_length) return;
 
-		int size = _size - 1;
+		int length = _length - 1;
 
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < length; i++)
 			cout << _arr[i] << " ";
-		cout << _arr[size] << endl;
+		cout << _arr[length] << endl;
 
 	}
 
@@ -122,6 +124,7 @@ public :
 		delete[] _arr;
 		_arr = NULL;
 		_size = 0;
+		_length = 0;
 	}
 
 	bool delete_index(int index) {
@@ -131,7 +134,7 @@ public :
 			_arr[i] = _arr[i + 1];
 		}
 
-		--_size;
+		--_length;
 		return true;
 	}
 
@@ -160,7 +163,7 @@ public :
 
 	public :
 	int find(T item) {	
-		return _binary_recursive_search(item,0,_size-1);
+		return _binary_recursive_search(item,0,_length-1);
 	}
 
 	bool delete_item(T item) {
@@ -168,26 +171,46 @@ public :
 		return this->delete_index(this->find(item));
 	}
 
-	bool insert(int index, T item) {
+	private:
 
-		if (index > _size || index < 0) return false;
+	void _insert_if_full_arr(int index,T item) {
 
-		++_size;
+		_size = 1.5 * _size + 1; // Alocate More space to use the other function next time(_insert_if_empty_space)
+		++_length;
 
-		T* tmp_arr = new T[_size];
+		T* tmp_arr = new T[_length];
 
 		for (int i = 0; i < index; i++)
 			tmp_arr[i] = _arr[i];
 
 		tmp_arr[index] = item;
 
-		for (int i = index + 1; i < _size; i++)
-			tmp_arr[i] = _arr[i-1];
+		for (int i = index + 1; i < _length; i++)
+			tmp_arr[i] = _arr[i - 1];
 
 		delete[] _arr;
 		_arr = tmp_arr;
+	}
 
+	void _insert_if_empty_space(int index, T item) {
+
+		if (index != _length) 
+			for (int i = _length; i > index; i--) _arr[i] = _arr[i - 1];
+
+		_arr[index] = item;
+		++_length;
+	}
+
+	public:
+
+	bool insert(int index, T item) {
+
+		if (index > _length || index < 0) return false;
+		if (_size == _length) _insert_if_full_arr(index,item);
+		else _insert_if_empty_space(index,item);
 		return true;
 	}
+
+
 };
 
