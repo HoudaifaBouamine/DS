@@ -124,7 +124,7 @@ public :
 		_size = 0;
 	}
 
-	bool delete_item(int index) {
+	bool delete_index(int index) {
 		if (index < 0 || index >= _size) return false;
 
 		for (int i = index; i < _size - 1; i++) {
