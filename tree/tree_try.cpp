@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-// start on 22:40 // complite on 23:03
+// start on 22:40 // complite on 23:03 // continue at 23:35
 struct st_node {
 
 	int value = 0;
@@ -36,17 +36,19 @@ void from_arr_to_tree(st_node*& root, char arr[]) {
 	}
 
 }
-#define nil NULL
 
 int get_max(st_node* root) {
+	
+	if (root == NULL)
+		return -1;
 
-	if (root->left == nil && root->right == nil)
+	if (root->left == NULL && root->right == NULL)
 		return root->value;
 
-	if (root->left == nil)
+	if (root->left == NULL)
 		return max(root->value, get_max(root->right));
 
-	if (root->right == nil)
+	if (root->right == NULL)
 		return max(root->value, get_max(root->left));
 
 	return max(max(root->value, get_max(root->left)), get_max(root->right));
@@ -55,28 +57,29 @@ int get_max(st_node* root) {
 
 int get_min(st_node* root) {
 
-	if (root->left == nil && root->right == nil)
+	if(root == NULL)
+		return 1000;
+
+	if (root->left == NULL && root->right == NULL)
 		return root->value;
 
-	if (root->left == nil)
+	if (root->left == NULL)
 		return min(root->value, get_min(root->right));
 
-	if (root->right == nil)
+	if (root->right == NULL)
 		return min(root->value, get_min(root->left));
 
 	return min(min(root->value, get_min(root->left)), get_min(root->right));
 
 }
 
-bool is_binary_search_tree(st_node* root) {
-	
-	if (root == nil)
+bool is_binary_search_tree(st_node* root) { 
+
+	if (root == NULL)
 		return true;
 
-	if (get_max(root->left) < root->value && get_min(root->right) >= root->value)
-		return true;
+	return (get_max(root->left) < root->value && get_min(root->right) >= root->value) && is_binary_search_tree(root->left) && is_binary_search_tree(root->right);
 
-	return false;
 }
 
 int main() {
@@ -85,7 +88,6 @@ int main() {
 
 	st_node* root = nullptr;
 	from_arr_to_tree(root, arr);
-
 	cout << is_binary_search_tree(root) << endl;
 
 	return 0;
