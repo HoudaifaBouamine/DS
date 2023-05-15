@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 // start on 22:40 // complite on 23:03 // continue at 23:35
+
 struct st_node {
 
 	int value = 0;
@@ -8,7 +9,7 @@ struct st_node {
 	st_node* right = nullptr;
 };
 
-void add_node(st_node*& root,char new_value) {
+void add_node(st_node*& root, char new_value) {
 
 	if (root == NULL) {
 		root = new st_node;
@@ -32,13 +33,13 @@ void from_arr_to_tree(st_node*& root, char arr[]) {
 	for (char i = 1; i < 9; i++)
 	{
 		st_node* tmp = root;
-		add_node(tmp,arr[i]);
+		add_node(tmp, arr[i]);
 	}
 
 }
 
 int get_max(st_node* root) {
-	
+
 	if (root == NULL)
 		return -1;
 
@@ -57,7 +58,7 @@ int get_max(st_node* root) {
 
 int get_min(st_node* root) {
 
-	if(root == NULL)
+	if (root == NULL)
 		return 1000;
 
 	if (root->left == NULL && root->right == NULL)
@@ -73,7 +74,7 @@ int get_min(st_node* root) {
 
 }
 
-bool is_binary_search_tree(st_node* root) { 
+bool is_binary_search_tree(st_node* root) {
 
 	if (root == NULL)
 		return true;
@@ -82,13 +83,43 @@ bool is_binary_search_tree(st_node* root) {
 
 }
 
+bool find(st_node* root,int value) {
+
+	if (root == NULL) {
+		return false;
+	}
+
+	if (root->value == value) {
+		return true;
+	}
+
+	if (value < root->value) {
+		return find(root->left, value);
+	}
+	
+	return find(root->right, value);
+}
+
 int main() {
 
 	char arr[] = { 45,15,79,90,10,55,12,20,50 };
 
 	st_node* root = nullptr;
 	from_arr_to_tree(root, arr);
-	cout << is_binary_search_tree(root) << endl;
+	//cout << is_binary_search_tree(root) << endl;
+	
+	for (size_t i = 0; i < 100; i++)
+	{
+
+		if (find(root, i)) {
+			cout << i << endl;
+		}
+
+	}
+
+
+
 
 	return 0;
 }
+
