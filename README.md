@@ -1,5 +1,5 @@
 # Data Structure by C++
-## creating STL librery from scratch
+## creating [STL library](https://fr.wikipedia.org/wiki/Standard_Template_Library) from scratch
 
 ### Done :
 
